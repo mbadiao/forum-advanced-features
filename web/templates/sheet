@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="prof00">
+        <div class="leftprof">
+            <div class="logoprof">
+                <a href="/">
+                    <div class="">
+                        <img src="./static/assets/0.svg" alt="">
+                        <img src="./static/assets/1.svg" alt="">
+                    </div>
+                </a>
+            </div>
+            <div class="options">
+                <a href=""><button><img src="./static/assets/profile/homeprof.svg" alt=""><span>Home</span></button></a>
+                <a href=""><button><img src="./static/assets/profile/Vector.svg" alt=""><span>Liked or Disliked</span></button></a>
+                <a href=""><button><img src="./static/assets/profile/crprof.svg" alt=""><span>Created Post</span></button></a>
+                <a href=""><button><img src="./static/assets/profile/comprof.svg" alt=""><span>Commented Post</span></button></a>
+            </div>
+            <div class="bottombtn">
+                <div class="profilepic"><img src="https://ui-avatars.com/api/?name=J+' '+D&bold=true
+                    &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
+                <div class="identifiants">
+                    <div class="FullName">John Doe</div>
+                    <div class="Username">@johndoe</div>
+                </div>
+            </div>
+        </div>
+        <div class="rightprof">
+            <div class="bcnprof"></div>
+            <div class="postprof"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./static/css/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forum login</title>
+</head>
+
+<body>
+    <a href="/">
+        <div class="sign-logo00">
+            <img src="./static/assets/0.svg" alt="">
+            <img src="./static/assets/1.svg" alt="">
+        </div>
+    </a>
+    <div id="all-page">
+        <div id="login-left">
+            <a href="/">
+                <div class="sign-logo">
+                    <img src="./static/assets/0.svg" alt="">
+                    <img src="./static/assets/1.svg" alt="">
+                </div>
+            </a>
+            <div id="login-left-content">
+                <h1 id="login-title">Sign in</h1>
+                <div id="new-user">New user? <button onclick="showSignup()"> Create an account</button></div>
+                <p>Welcome back! Please login to your account.</p>
+                <form action="/login" method="post">
+                    <div id="login-form">
+                        <p style="color: red;">{{.Messagelg}}</p>
+                        <input type="text" name="login-name" id="email" placeholder="Email Adress or Username" required><br>
+                        <input type="password" name="login-password" id="password" placeholder="Password" required>
+                        <p style="color: red; top: 0px !important;bottom: 0px !important;">{{.Badpassword}}</p>
+                    </div>
+                    <input id="bouton-login" class="btn" type="submit" value="LOGIN">
+                    <div id="Or">
+                        <span></span>
+                        OR
+                        <span></span>
+                    </div>
+                </form>
+                <button id="button-google" class="btn">
+                    <img src="./static/assets/google-icon.svg" alt="Google">
+                    <span>Continue with Google</span>
+                </button>
+            </div>
+
+            <div id="Signup-left-content">
+                <h1 id="login-title">Sign up</h1>
+                <div id="new-user">Already have an account? <button onclick="showSignin()"> Sign in </button></div>
+                <div id="errorSignup">
+                </div>
+                <form action="/login" method="post">
+                    <div id="signup-form">
+                        <div style="color: red;">{{.Messagesg}}</div>
+                        <input type="text" name="firstname" id="username" placeholder="Firstname" required><br>
+                        <input type="text" name="lastname" id="username" placeholder="Lastname" required><br>
+                        <input type="text" name="username" id="username" placeholder="Username" required><br>
+                        <input type="email" name="signup-email" id="email" placeholder="Email Adress" required><br>
+                        <input type="password" name="signup-password" id="password" placeholder="Password" required>
+                     </div>
+                    <input id="bouton-login" class="btn" type="submit" value="SIGN UP">
+                    <div id="Or">
+                        <span></span>
+                        OR
+                        <span></span>
+                    </div>
+                </form>
+                <button id="button-google" class="btn">
+                    <img src="./static/assets/google-icon.svg" alt="Google">
+                    <span>Continue with Google</span>
+                </button>
+            </div>
+        </div>
+        <div id="login-right"></div>
+    </div>
+    <script src="./static/script/signup.js"></script>
+    <script>
+        var defaultForm = "{{.Page}}";
+        if (defaultForm === "signin") {
+            showSignin();
+        } else {
+            showSignup();
+        }
+    </script>
+</body>
+
+</html>

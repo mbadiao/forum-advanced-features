@@ -1,0 +1,178 @@
+#rightside {
+    display: flex;
+    justify-content: center;
+}
+
+#rightsidecontainer {
+    width: 100%;
+    height: 500px;
+}
+
+#postbabs {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vw;
+    width: 100%;
+    gap: 8px;
+    border: none;
+    border-radius: 2.3vh;
+    background-color: #28343E;
+}
+
+#btnposte {
+    margin-bottom: 1.5vw;
+}
+
+#addpost {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 3px;
+}
+
+.filter {
+    width: 100%;
+    border-radius: 15px;
+    background-color: #28343E;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.filter p {
+    color: white;
+    font-size: 1.5vw;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.filter_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+#intern {
+    padding-top: 0.5vw;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 20vw;
+    min-width: 18px;
+}
+
+.button input[type="checkbox"] {
+    display: none;
+}
+
+.button-circle {
+    display: none;
+}
+
+.button-label {
+    display: flex;
+    justify-content: center;
+    width: 12vw;
+    height: 22px;
+    border: none;
+    border-radius: 24px;
+    background-color: #354450;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+.button-label:hover {
+    background-color: #87B29E;
+}
+
+.button input[type="checkbox"]:checked ~ .button-label {
+    background-color: #519e7a; 
+    border: 0.1px solid white;
+}
+
+.button:hover input[type="checkbox"]:checked ~ .button-label{
+    background-color: #87B29E;
+}
+
+.submitclass {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    align-items: center;
+    height: 25px;
+    border-radius: 24px;
+    background-color: #354450;
+    border: 1.3px solid #87B29E;
+    margin-top: 10px;
+    padding-bottom: 2px;
+}
+
+#btnsubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.submitinput #submitid {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #354450;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    border: none;
+}
+
+.icon {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+}
+
+@media screen and (max-width: 607px) {
+    .button-label {
+        font-size: medium;
+    }
+
+    #addpost {
+        font-size: small;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+
+    #submitid {
+        font-size: medium;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 778px) {
+    #addpost {
+        font-size: small;
+        white-space: nowrap;
+        font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    #addpost {
+        font-size: x-small;
+        white-space: nowrap;
+        font-weight: 300;
+    }
+}

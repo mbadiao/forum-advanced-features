@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="./static/script/signup.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="entete">
+        <a href="/">
+            <div>
+                <img src="./static/assets/0.svg" alt="">
+                <img src="./static/assets/1.svg" alt="">
+            </div>
+        </a>
+        <span class="log-not">
+            <img src="./static/assets/bell 1.svg" alt="">
+        </span>
+    </div>
+    <div id="all-page">
+
+        <!-- left side -->
+        <div id="leftside">
+            <div id="allleftside">
+                <div id="profile">
+                    <div id="bg-profile">
+                        <div id="test">
+                            {{if .Isconnected}}
+                            <div><img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
+                                &background=fff&color=87B29E&rounded=true&uppercase=true" alt=""></div>
+                            {{else}}
+                            <div><img src="./static/assets/profilepic.svg" alt=""></div>
+                            {{end}}
+                            <div style="font-size: 1.1vw;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}</div>
+                            <!-- <div style="font-size: 0.9vw;">@{{.ActualUser.Username}}</div> -->
+                        </div>
+                    </div>
+                </div>
+                <div id="incrementation">
+                    <div class="count" id="count-like"><span>
+                            <p>{{.Mylike}}</p> Likes
+                        </span></div>
+                    <div class="count" id="count-post"><span>
+                            <p>{{.Mypost}}</p> Posts
+                        </span></div>
+                </div>
+                <div id="logout-button">
+                    <a href="/logout"><button id="logout"><span id="statusplace"></span></button></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center-side -->
+        <div id="centerside">
+            {{range .Alldata.Posts}}
+            <div id="centercontainer">
+                <div id="postouz">
+                    <div id="profileouz">
+                        <div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
+                        <div id="user">
+                            <div id="name">{{.User.Firstname}} {{.User.Lastname}}</div>
+                            <div id="username">@{{.User.Username}}</div>
+                            <div id="time">{{.Post.FormatedDate}}</div>
+                        </div>
+                    </div>
+                    <div id="title">{{.Post.Title}}</div>
+                    {{ if ne .Post.PhotoURL "NoPhoto" }}
+                    <div id="image">
+                        <div id="imgcontainer"><img src="{{.Post.PhotoURL}}" alt="Photo"></div>
+                    </div>
+                    {{ end }}
+                    <div id="text" class="voirplus">
+                        <p>{{.Post.Content}}</p>
+                    </div>
+                    <div id="categories">
+                        {{range .Post.Categories}}
+                        <div>#{{.}}</div>
+                        {{end}}
+                    </div>
+                    <div id="info">
+                        <div id="infocontainer">
+                            <form action="/likedislike" method="post" style="width: 100%;">
+                                <input type="hidden" name="postidouz" value="{{.Post.PostID}}">
+                                <div class="ldc">
+                                    <button class="ldc" style="width: 100%;" type="submit" name="actionlike"
+                                        value="like">
+                                        <div id="like">
+                                            <div><img src="./static/assets/like 1.svg" alt=""></div>
+                                            <div id="nbrlike">{{.Post.Nbrlike}}</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </form>
+                            <form action="/likedislike" method="post" style="width: 100%;">
+                                <input type="hidden" name="postidouz" value="{{.Post.PostID}}">
+                                <div class="ldc">
+                                    <button class="ldc" style="width: 100%;" type="submit" name="actiondislike"
+                                        value="dislike">
+                                        <div id="dislike">
+                                            <div><img src="./static/assets/Group 66.svg" alt=""></div>
+                                            <div id="nbrdislike">{{.Post.Nbrdislike}}</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </form>
+                            <a href="/comment?id={{.Post.PostID}}" class="ldc comment-trigger">
+                                <button class="ldc  comment-trigger" style="width: 100%;">
+                                    <div id="comment">
+                                        <div><img src="./static/assets/message-circle-more 1.svg" alt=""></div>
+                                        <div id="titlecomment">{{.Post.Nbrcomments}}</div>
+                                    </div>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+        </div>
+
+        <!-- Right-side -->
+        <div id="rightside">
+            <div id="rightsidecontainer">
+                <div id="btnposte">
+                    {{if .Isconnected}}
+                    <button id="postbabs" class="modal-btn modal-trigger">
+                        <img src="./static/assets/iconeadd.svg">
+                        <span id="addpost"> NEW POST </span>
+                    </button>
+                    {{end}}
+                </div>
+                <div class="filter">
+                    <div id="filtercontent">
+                        <form action="/filter" method="post">
+                            <div id="intern">
+                                <div>
+                                    <p>Filter by</p>
+                                </div>
+                                <div class="filter_form">
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categoryall" value="All">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">All</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categorytech" value="Tech">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Tech</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categoryactu" value="Actu">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Actu</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categorymode" value="Mode">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Mode</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categorysports" value="Sport">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Sport</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="Categoryedu" value="Edu">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Edu</span>
+                                    </label>
+                                    {{if .Isconnected}}
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="LikedPost" value="Like">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Liked</span>
+                                    </label>
+                                    <label class="button">
+                                        <input type="checkbox" name="Category" id="CreatedPost" value="Created">
+                                        <div class="button-circle"></div>
+                                        <span class="button-label">Created</span>
+                                    </label>
+                                    {{end}}
+                                </div>
+
+                                <div id="btnsubmit">
+                                    <label for="submitid" class="submitclass">
+                                        <div class="submitinput"><input type="submit" value="Filter" id="submitid">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{if .Isconnected}}
+                <a href="/logout">
+                    <button id="logouthide">
+                        <span id="statusplace">logout</span>
+                    </button>
+                </a>
+                {{else}}
+                <a href="/logout">
+                    <button id="logouthide">
+                        <span id="statusplace">login</span>
+                    </button>
+                </a>
+                {{end}}
+            </div>
+        </div>
+
+        <!--Modal post -->
+        <div class="main">
+            <div class="headermodal">
+                <div>
+                    <img src="../static/images/0.svg" alt="">
+                    <img src="../static/images/1.svg" alt="">
+                </div>
+                <span class="log-not">
+                    <img src="../static/images/bell 1.svg" alt="">
+                </span>
+            </div>
+            <div class="modal-container">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <div class=" overlay modal-trigger"></div>
+                    <div class="modal">
+                        <div class="close-modal modal-trigger">X</div>
+                        <div class="modal-element">
+                            <h1>Create a new post</h1>
+                            <textarea placeholder=" Title" class="textarea-title" name="title" id=""></textarea>
+                            <div class="elemnent">
+                                <div class="sep">
+                                    <span class="separator">
+                                    </span>
+                                </div>
+                                <h2>Image</h2>
+                                <div class="sep">
+                                    <span class="separator">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="Photo">
+                                <img class="img-button-photo" src="../static/assets/image 1.svg" alt="tags"> photo
+                                <input type="file" id="file-input" accept="image/png,image/svg, image/jpeg, image/gif" name="file">
+                            </div>
+                            <div class="elemnent">
+                                <div class="sep">
+                                    <span class="separator">
+                                    </span>
+                                </div>
+                                <h2>Categories</h2>
+                                <div class="sep">
+                                    <span class="separator">
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="Category-checkbox">
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="All">
+                                        <span>All</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="Tech">
+                                        <span>Tech</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="Actu">
+                                        <span>Actu</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="Mode">
+                                        <span>Mode</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="Sport">
+                                        <span>Sport</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="checkbox" name="checkbox" value="Edu">
+                                        <span>Edu</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="send">
+                                <textarea placeholder="Add Thread" class="text" name="thread" id=""></textarea>
+                                <button class="send-img">
+                                    <input type="image" src="./static/assets/send-horizontal 1.svg" alt="Submit">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- comment post -->
+    <script>
+        var defaultStatus = "{{.Status}}";
+        if (defaultStatus === "") {
+            defaultStatus = "login"
+        }
+        document.getElementById("statusplace").innerText = defaultStatus;
+    </script>
+</body>
+
+</html>

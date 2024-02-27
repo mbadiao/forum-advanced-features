@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/comment.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <title>Document</title>
+</head>
+
+<body>
+    <header style="position: sticky;z-index: 1000; top:0;background-color: #06141D;">
+        <a href="/">
+            <div class="sign-logo">
+                <img src="./static/assets/0.svg" alt="">
+                <img src="./static/assets/1.svg" alt="">
+            </div>
+        </a>
+    </header>
+    <div class="allcommentside">
+        <div class="leftcomment"></div>
+        <div class="centercomment">
+            <div class="postside">
+                {{range .AllData.Posts}}
+                <div class="profilecomment">
+                    <img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt="">
+                    <div class="usernh">
+                        <p class="paragraphe">@{{.User.Username}}</p>
+                        <p style="color: #62707D;font-size: 13px;margin-top: 12px;">{{.Post.FormatedDate}}</p>
+                    </div>
+                </div>
+                <div class="postcomcontent">
+                    <p style="font-weight: 900; color: white; margin-bottom: 10px;">{{.Post.Title}}</p>
+                    {{ if ne .Post.PhotoURL "NoPhoto" }}
+                    <div id="image">
+                        <div id="imgcontainer"><img src="{{.Post.PhotoURL}}" alt="Photo"></div>
+                    </div>
+                    {{ end }}
+                    <p style="font-size: 14px; color: white; margin-bottom: 10px;">
+                        {{.Post.Content}}
+                    </p>
+                    <div id="categories">
+                        {{range .Post.Categories}}
+                        <div>#{{.}}</div>
+                        {{end}}
+                    </div>
+                </div>
+
+                {{end}}
+            </div>
+            <div class="commentside">
+                <form class="commentinput" action="" method="POST" onsubmit="toggleSubmitButton(event)">
+                    <textarea name="comment" id="text" placeholder="Your comment here..." oninput="updateCharacterCount()"></textarea>
+                    <button class="submitcomment" id="submitBtn" type="submit" disabled>
+                        <input type="submit" value="Comment" style="background-color: transparent; border: none;">
+                    </button>
+                </form>
+                <div style="color: white;" id="charCount">0 / 200</div>
+                <div class="progress">
+                    <div id="progressBar"></div>
+                </div>
+                <hr style="margin-top: 50px; margin-left: 10px;">
+                {{range .Comment}}
+                <div class="commentcontent">
+                    <div class="profilecomment">
+                        <img src="https://ui-avatars.com/api/?name={{.Firstname}}+' '+{{.Lastname}}&bold=true
+                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt="">
+                        <div class="usernh">
+                            <p class="paragraphe">@{{.Username}}</p>
+                            <p style="color: #62707D;font-size: 13px;margin-top: 12px;">{{.Formatdate}}</p>
+                        </div>
+                    </div>
+                    <div class="postcomcontent">
+                        <p style="font-size: 14px; color: white;word-wrap: break-word;">
+                            {{.Content}}
+                        </p>
+                    </div>
+                    <div class="buttonside">
+                        <div class="likecomment">
+                            <form action="/likecomment" method="post">
+                                <input type="hidden" name="commentidlike" value="{{.CommentID}}">
+                                <input type="hidden" name="postouzid" value="{{.PostID}}">
+                                <button value="likecomment" type="submit" name="likecomment">
+                                    <img src="./static/assets/like 1.svg" alt="">
+                                </button>
+                                <span style="color: white;display: inline-block;">{{.NbrLike}}</span>
+                            </form>
+                        </div>
+
+                        <div class="likecomment">
+                            <form action="/likecomment" method="post">
+                                <input type="hidden" name="commentidlike" value="{{.CommentID}}">
+                                <input type="hidden" name="postouzid" value="{{.PostID}}">
+                                <button value="dislikecomment" type="submit" name="dislikecomment">
+                                    <img src="./static/assets/Group 66.svg" alt="">
+                                </button>
+                                <span style="color: white; display: inline-block;">{{.NbrDislike}}</span>
+                            </form>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 20px;">
+                    {{end}}
+                </div>
+            </div>
+            <div class="rightcomment"></div>
+        </div>
+</body>
+
+<script>
+    window.onload = function () {
+        // Appel de la fonction pour initialiser le bouton transparent
+        toggleSubmitButton();
+    }
+
+    function toggleSubmitButton(event) {
+        var commentInput = document.getElementById("text");
+        var submitBtn = document.getElementById("submitBtn");
+
+        if (commentInput.value.trim() !== "") {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = 1;
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = 0.5;
+            // Empêcher l'action par défaut du formulaire
+            if (event) {
+                event.preventDefault();
+            }
+        }
+    }
+    function updateCharacterCount() {
+        var commentInput = document.getElementById("text");
+        var charCount = document.getElementById("charCount");
+
+        var currentLength = commentInput.value.length;
+        var maxLength = 200; // Limite de caractères
+
+        if (currentLength > maxLength) {
+            commentInput.value = commentInput.value.substring(0, maxLength);
+            currentLength = maxLength;
+        }
+
+        charCount.textContent = currentLength + " / " + maxLength;
+
+        // Mise à jour de la barre de progression
+        var progress = (currentLength / maxLength) * 200;
+        progressBar.style.width = progress + "%";
+
+        // Mise à jour du bouton de soumission en fonction de la longueur du commentaire
+        var submitBtn = document.getElementById("submitBtn");
+        if (currentLength > 0 && currentLength <= maxLength) {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = 1;
+        } else {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = 0.5;
+        }
+    }
+</script>
+
+
+
+</html>

@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Rubik+Mono+One&family=Rubik+Scribble&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Rubik+Scribble&display=swap');
+body {
+    display: block;
+    margin: 8px;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    font: 110%/1.5 system-ui, sans-serif;
+    background: #06141D;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    padding: 2rem;
+}
+h1 {
+    font-family: "Rubik Mono One";
+    font-size: 7em;
+    letter-spacing: 2px;
+    line-height: 0.2em;
+}
+p {
+    display: block;
+    font-family: Oswald;
+    font-size: 2em;
+    line-height: 1.2em;
+    text-align: center;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+main {
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    gap: 10px;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    text-align: center;
+    padding-left: 0;
+}
+li {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+a {
+    text-decoration: none;
+    color: #519e7a;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    font-size: 1.2em;
+}
+#home {
+    margin: auto;
+    color: #519e7a;
+}
