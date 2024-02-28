@@ -33,8 +33,10 @@
                     <div id="bg-profile">
                         <div id="test">
                             {{if .Isconnected}}
-                            <div><img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
-                                &background=fff&color=87B29E&rounded=true&uppercase=true" alt=""></div>
+                            <a href="/profile">
+                                <div><img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
+    &background=fff&color=87B29E&rounded=true&uppercase=true" alt=""></div>
+                            </a>
                             {{else}}
                             <div><img src="./static/assets/profilepic.svg" alt=""></div>
                             {{end}}
@@ -63,8 +65,10 @@
             <div id="centercontainer">
                 <div id="postouz">
                     <div id="profileouz">
-                        <div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                        <a href="/profile">
+                            <div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
                             &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
+                        </a>
                         <div id="user">
                             <div id="name">{{.User.Firstname}} {{.User.Lastname}}</div>
                             <div id="username">@{{.User.Username}}</div>
@@ -247,7 +251,8 @@
                             </div>
                             <div class="Photo">
                                 <img class="img-button-photo" src="../static/assets/image 1.svg" alt="tags"> photo
-                                <input type="file" id="file-input" accept="image/png,image/svg, image/jpeg, image/gif" name="file">
+                                <input type="file" id="file-input" accept="image/png,image/svg, image/jpeg, image/gif"
+                                    name="file">
                             </div>
                             <div class="elemnent">
                                 <div class="sep">

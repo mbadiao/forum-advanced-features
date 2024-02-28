@@ -22,12 +22,13 @@
                     </div>
                 </a>
             </div>
-            <div class="options">
-                <button class="active_page"><i class="fas fa-house" aria-hidden="true"></i>Home</button>
-                <button><i class="far fa-thumbs-up" aria-hidden="true"></i>Liked or Disliked Post</button>
-                <button><i class="far fa-pen-to-square" aria-hidden="true"></i>Created Post</button>
-                <button><i class="far fa-comment" aria-hidden="true"></i>Commented Post</button>
-            </div>
+                <div class="options">
+                    <!-- Ajoutez un ID unique à chaque lien pour les distinguer -->
+                    <a href="/"><button id="homeButton"><i class="fas fa-house" aria-hidden="true"></i>Home</button></a>
+                    <a href="/profile"><button id="likedButton"><i class="far fa-thumbs-up" aria-hidden="true"></i>Liked or Disliked Post</button></a>
+                    <a href="/profile"><button id="createdButton"><i class="far fa-pen-to-square" aria-hidden="true"></i>Created Post</button></a>
+                    <a href="/profile"><button id="commentedButton"><i class="far fa-comment" aria-hidden="true"></i>Commented Post</button></a>
+                </div>
             <div class="bottombtn">
                 <div class="profilepic"><img src="https://ui-avatars.com/api/?name=J+' '+D&bold=true
                     &background=D9D9D9&color=00000&rounded=true&uppercase=true&size=88" alt=""></div>
@@ -40,7 +41,7 @@
         <div class="rightprof">
             <div class="bcnprof">
                 <div class="background">
-                    <span><i class="fa-solid fa-circle-arrow-left"></i></span>
+                   <button style="border: none; background-color: transparent;" onclick="history.back()"><span><i class="fa-solid fa-circle-arrow-left"></i></span></button>
                 </div>
             </div>
             <div class="postprof">
@@ -58,12 +59,15 @@
                 <div id="centercontainer">
                     <div id="postouz">
                         <div id="profileouz">
-                            <div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                            <div style="margin-top: 10px;" class="pp">img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
                                 &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
-                            <div id="user">
-                                <div id="name">{{.User.Firstname}} {{.User.Lastname}}</div>
-                                <div id="username">@{{.User.Username}}</div>
-                                <div id="time">{{.Post.FormatedDate}}</div>
+                            <div class="trashcontainer">
+                                <div class="pp" id="user">
+                                    <div id="name">{{.User.Firstname}} {{.User.Lastname}}</div>
+                                    <div id="username">@{{.User.Username}}</div>
+                                    <div id="time">{{.Post.FormatedDate}}</div>
+                                </div>
+                                <div class="trash"><i style="color: #87B29E; cursor: pointer;" class="fa-solid fa-trash"></i></div>
                             </div>
                         </div>
                         <div id="title">{{.Post.Title}}</div>
@@ -122,6 +126,42 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Fonction pour sauvegarder l'état du bouton sélectionné dans le stockage local
+        function saveSelectedButton(buttonId) {
+            localStorage.setItem('selectedButton', buttonId);
+        }
+
+        // Fonction pour charger l'état du bouton sélectionné depuis le stockage local
+        function loadSelectedButton() {
+            const selectedButtonId = localStorage.getItem('selectedButton');
+            if (selectedButtonId) {
+                const selectedButton = document.getElementById(selectedButtonId);
+                if (selectedButton) {
+                    selectedButton.classList.add('active_page');
+                }
+            }
+        }
+
+        // Récupérer tous les boutons dans la div avec la classe "options"
+        const buttons = document.querySelectorAll('.options button');
+
+        // Ajouter un écouteur d'événement à chaque bouton
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Supprimer la classe "active_page" de tous les boutons
+                buttons.forEach(btn => btn.classList.remove('active_page'));
+                // Ajouter la classe "active_page" uniquement au bouton cliqué
+                this.classList.add('active_page');
+                // Sauvegarder l'état du bouton sélectionné dans le stockage local
+                saveSelectedButton(this.id);
+            });
+        });
+
+        // Charger l'état du bouton sélectionné au chargement de la page
+        window.addEventListener('load', loadSelectedButton);
+    </script>
 </body>
 
 </html>

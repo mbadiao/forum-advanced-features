@@ -1,7 +1,7 @@
 
 <h1 align="center">Forum</h1>
 
-Welcome to the <font color="orange"> FORUM IMAGE UPLOAD</font> project! <br>
+Welcome to the <font color="orange"> FORUM AUTHENTIFICATION</font> project! <br>
 If this is your first time here, we're glad to have you! <br> We hope you find this project helpful. We encourage you to contribute, ask questions, and collaborate with us.
 
 
@@ -44,14 +44,9 @@ Forum consists in creating a web forum that allows :
 For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum)
 
 
-In this project (image upload) registered users have the possibility to create a post containing an image as well as text.
+In this project (authentication) users have the possibility to sign up or sign in with there google or github account . we integrate the oauth technologie.
 
-When viewing the post, users and guests should see the image associated to it.
-There are several extensions for images like: JPEG, SVG, PNG, GIF, etc. In this project you have to handle at least JPEG, PNG and GIF types.
-
-The max size of the images to load should be 20 mb. If there is an attempt to load an image greater than 20mb, an error message should inform the user that the image is too big.
-
-For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum/image-upload)
+For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum/authentication)
 
 
 
@@ -73,7 +68,7 @@ Before starting, you need to have [Git](https://git-scm.com) and [Go](https://go
 
 ```bash
 # Clone this project
- git clone https://learn.zone01dakar.sn/git/ousmasene/mbadiao/forum.git
+ git clone https://learn.zone01dakar.sn/git/ousmasene/forum-authentication.git
 
 
 # Access

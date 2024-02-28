@@ -26,8 +26,8 @@
             <div class="postside">
                 {{range .AllData.Posts}}
                 <div class="profilecomment">
-                    <img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
-                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt="">
+                    <a href="/profile"> <img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+    &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></a>
                     <div class="usernh">
                         <p class="paragraphe">@{{.User.Username}}</p>
                         <p style="color: #62707D;font-size: 13px;margin-top: 12px;">{{.Post.FormatedDate}}</p>
@@ -54,7 +54,8 @@
             </div>
             <div class="commentside">
                 <form class="commentinput" action="" method="POST" onsubmit="toggleSubmitButton(event)">
-                    <textarea name="comment" id="text" placeholder="Your comment here..." oninput="updateCharacterCount()"></textarea>
+                    <textarea name="comment" id="text" placeholder="Your comment here..."
+                        oninput="updateCharacterCount()"></textarea>
                     <button class="submitcomment" id="submitBtn" type="submit" disabled>
                         <input type="submit" value="Comment" style="background-color: transparent; border: none;">
                     </button>
@@ -67,8 +68,8 @@
                 {{range .Comment}}
                 <div class="commentcontent">
                     <div class="profilecomment">
-                        <img src="https://ui-avatars.com/api/?name={{.Firstname}}+' '+{{.Lastname}}&bold=true
-                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt="">
+                        <a href="/profile"><img src="https://ui-avatars.com/api/?name={{.Firstname}}+' '+{{.Lastname}}&bold=true
+                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></a>
                         <div class="usernh">
                             <p class="paragraphe">@{{.Username}}</p>
                             <p style="color: #62707D;font-size: 13px;margin-top: 12px;">{{.Formatdate}}</p>

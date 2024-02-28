@@ -34,6 +34,10 @@ var Err = map[int]Error{
 		400,
 		"create a post with an image larger than 20mb is not possible",
 	},
+	401: {
+		401,
+		"user not identified, please check your information",
+	},
 }
 
 type Route struct {
@@ -79,6 +83,26 @@ var Routes = []Route{
 		Method:  []string{"POST"},
 	},
 	{
+		Path:    "/callback",
+		Handler: HandleCallback,
+		Method:  []string{"GET"},
+	},
+	{
+		Path:    "/continuewithgoogle",
+		Handler: HandleLogGoogle,
+		Method:  []string{"GET"},
+	},
+	{
+		Path:    "/githubcallback",
+		Handler: HandleGitHubCallback,
+		Method:  []string{"GET"},
+	},
+	{
+		Path:    "/continuewithgithub",
+		Handler: HandleLogGithub,
+		Method:  []string{"GET"},
+	},
+		{
 		Path:    "/profile",
 		Handler: ProfileHandler,
 		Method:  []string{"POST", "GET"},

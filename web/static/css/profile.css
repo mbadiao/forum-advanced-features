@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+a{
+    text-decoration: none;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #1B2730;
@@ -67,7 +71,10 @@ button.active_page {
     margin-right: 8px;
     font-size: 0.85em;
 }
-
+.options button.active_page {
+    background-color: rgba(0, 0, 0, 0.308) !important;
+    color: rgb(107, 107, 107) !important;
+}
 
 .options span {
     /* font-size: 24px; */
@@ -141,11 +148,19 @@ button.active_page {
     gap: 4vh;
     padding-bottom: 2vh;
 }
-
+.trashcontainer{
+    display: flex;
+    flex-direction: row;
+    padding-right: 20px;
+    width: 98%;
+    padding-top: 18px;
+    margin-left: -15px;
+}
 #postouz {
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
-    width: 95%;
+    width: 70%;
     background-color: #28343E;
     border-radius: 10px;
     padding: 10px 5px 10px 5px;
@@ -244,7 +259,9 @@ button.active_page {
 #infocontainer img {
     width: 2vw;
 }
-
+.pp{
+    gap: 10px;
+}
 #like,
 #dislike {
     padding-left: 25%;

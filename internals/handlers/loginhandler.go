@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"database/sql"
 	"fmt"
 	"forum/internals/database"
 	"forum/internals/utils"
@@ -107,26 +108,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 					utils.FileService("login.html", w, data)
 					return
 				}
-				found := false
-				datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-				if err != nil {
-					fmt.Println("data")
-					fmt.Println(err.Error())
-					return
-				}
-				for _, data := range datas {
-					u := data.(*database.Session)
-					if u.UserID == id {
-						found = true
-						db.Exec(`DELETE FROM Sessions WHERE user_id =` + strconv.Itoa(id))
-						database.Insert(db, "Sessions", "(user_id, cookie_value)", id, CreateCookie(w).Value)
-						http.Redirect(w, r, "/", http.StatusSeeOther)
-						return
-					}
-				}
-				if !found {
-					database.Insert(db, "Sessions", "(user_id, cookie_value)", id, CreateCookie(w).Value)
-					http.Redirect(w, r, "/", http.StatusSeeOther)
+				if CheckAndModifySession(db, id, w, r) {
 					return
 				}
 			} else {
@@ -144,7 +126,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 					utils.FileService("login.html", w, data1)
 					return
 				} else {
-					if !utils.IsAlphaSpace(firstname) || !utils.IsAlphaSpace(lastname){
+					if !utils.IsAlphaSpace(firstname) || !utils.IsAlphaSpace(lastname) {
 						data1 := Data{
 							Page:      "signup",
 							Messagesg: "use alphanumeric characters between 2 and 15",
@@ -208,6 +190,32 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		utils.FileService("error.html", w, Err[404])
 		return
 	}
+}
+
+func CheckAndModifySession(db *sql.DB, id int, w http.ResponseWriter, r *http.Request) bool {
+	found := false
+	datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
+	if err != nil {
+		fmt.Println("data")
+		fmt.Println(err.Error())
+		return true
+	}
+	for _, data := range datas {
+		u := data.(*database.Session)
+		if u.UserID == id {
+			found = true
+			db.Exec(`DELETE FROM Sessions WHERE user_id =` + strconv.Itoa(id))
+			database.Insert(db, "Sessions", "(user_id, cookie_value)", id, CreateCookie(w).Value)
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			return true
+		}
+	}
+	if !found {
+		database.Insert(db, "Sessions", "(user_id, cookie_value)", id, CreateCookie(w).Value)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return true
+	}
+	return false
 }
 
 func IsEmpty(str string) (string, error) {
