@@ -54,14 +54,14 @@ func LikeCommentHandler(w http.ResponseWriter, r *http.Request) {
 				utils.FileService("error.html", w, Err[400])
 				return
 			}
-			if !CheckIdlike(commentid){
+			if !CheckIdlike(commentid) {
 				w.WriteHeader(400)
-                utils.FileService("error.html", w, Err[400])
-                return
+				utils.FileService("error.html", w, Err[400])
+				return
 			}
 			postouzid := r.FormValue("postouzid")
 			postouzidnbr, err01 := strconv.Atoi(postouzid)
-			fmt.Println(postouzidnbr,"postid")
+			fmt.Println(postouzidnbr, "postid")
 			if err01 != nil {
 				w.WriteHeader(400)
 				utils.FileService("error.html", w, Err[400])
@@ -94,6 +94,7 @@ func LikeCommentHandler(w http.ResponseWriter, r *http.Request) {
 			}
 
 			if countage == 0 {
+				fmt.Println("nouveau like")
 				database.Insert(db, "CommentLikes", "(comment_id, user_id)", commentid, usercorrespondance)
 			}
 
