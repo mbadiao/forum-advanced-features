@@ -80,7 +80,7 @@ func LikeDislikeHandler(w http.ResponseWriter, r *http.Request) {
 			}
 
 			if count == 0 {
-				WhoLike(w, r, db, postid, actionLike)
+				WhoLike(w, r, db, postid, actionLike, actionDislike)
 				database.Insert(db, "LikesDislikes", "(post_id, user_id)", postid, usercorrespondance)
 			}
 
@@ -113,7 +113,7 @@ func LikeDislikeHandler(w http.ResponseWriter, r *http.Request) {
 						fmt.Println("error to uptade like or dislike")
 						return
 					}
-					WhoLike(w, r, db, postid, actionLike)
+					WhoLike(w, r, db, postid, actionLike, actionDislike)
 					http.Redirect(w, r, "/", http.StatusSeeOther)
 					return
 				}
@@ -125,7 +125,7 @@ func LikeDislikeHandler(w http.ResponseWriter, r *http.Request) {
 						fmt.Println("error to uptade like or dislike")
 						return
 					}
-					WhoLike(w, r, db, postid, actionLike)
+					WhoLike(w, r, db, postid, actionLike, actionDislike)
 					http.Redirect(w, r, "/", http.StatusSeeOther)
 					return
 				}
@@ -146,7 +146,7 @@ func LikeDislikeHandler(w http.ResponseWriter, r *http.Request) {
 						fmt.Println("error to uptade like or dislike")
 						return
 					}
-					WhoLike(w, r, db, postid, actionLike)
+					WhoLike(w, r, db, postid, actionLike, actionDislike)
 					http.Redirect(w, r, "/", http.StatusSeeOther)
 					return
 				}
@@ -157,7 +157,7 @@ func LikeDislikeHandler(w http.ResponseWriter, r *http.Request) {
 						fmt.Println("error to uptade like or dislike")
 						return
 					}
-					WhoLike(w, r, db, postid, actionLike)
+					WhoLike(w, r, db, postid, actionLike, actionDislike)
 					http.Redirect(w, r, "/", http.StatusSeeOther)
 					return
 				}
