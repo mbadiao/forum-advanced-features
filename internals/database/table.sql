@@ -73,6 +73,14 @@ CREATE TABLE IF NOT EXISTS Sessions (
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
+CREATE TABLE IF NOT EXISTS Notifications (
+    notification_id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    message TEXT NOT NULL,
+    post_id INTEGER NOT NULL,
+    read BOOLEAN NOT NULL DEFAULT FALSE
+);
+
 INSERT INTO Categories (name) VALUES
 ('Tech'),
 ('Actu'),

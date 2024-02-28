@@ -78,3 +78,10 @@ type Session struct {
 	Cookie_value   string
 	ExpirationDate time.Time
 }
+type Notifications struct {
+	NotificationID int
+	UserID         int
+	Message        string
+	PostID         int
+	Read           bool
+}
