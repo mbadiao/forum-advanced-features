@@ -83,3 +83,24 @@ for (var i =  0; i < textElements.length; i++) {
         textElement.appendChild(moreLink);
     }
 }
+
+// Modifier le deuxième morceau de code en renommant les fonctions
+var modalNotif = document.querySelector(".modalnotif");
+var triggersNotif = document.querySelectorAll(".triggernotif");
+var closeButtonNotif = document.querySelector(".close-buttonnotif");
+
+function toggleModalNotif() {
+  modalNotif.classList.toggle("show-modalnotif");
+}
+
+function windowOnClickNotif(event) {
+  if (event.target === modalNotif) {
+    toggleModalNotif();
+  }
+}
+
+for (var i = 0, len = triggersNotif.length; i < len; i++) {
+  triggersNotif[i].addEventListener("click", toggleModalNotif);
+}
+closeButtonNotif.addEventListener("click", toggleModalNotif);
+window.addEventListener("click", windowOnClickNotif);

@@ -21,7 +21,17 @@
             </div>
         </a>
         <span class="log-not">
-            <img src="./static/assets/bell 1.svg" alt="">
+            <p><button class="btnnotif triggernotif"><span>{{.LenNotif}}</span> Notifications</button></p>
+
+            <div class="modalnotif">
+                <div class="modalnotif-content">
+                    <span class="close-buttonnotif">&times;</span>
+                    <h2>Notifications</h2>
+                    {{range .Notifications}}
+                    <a href="/comment?id={{.PostID}}"><p>{{.Message}}</p></a>
+                    {{end}}
+                </div>
+            </div>
         </span>
     </div>
     <div id="all-page">
@@ -65,8 +75,10 @@
             <div id="centercontainer">
                 <div id="postouz">
                     <div id="profileouz">
-                        <a href="/profile"><div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
-                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div></a>
+                        <a href="/profile">
+                            <div id="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                            &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
+                        </a>
                         <div id="user">
                             <div id="name">{{.User.Firstname}} {{.User.Lastname}}</div>
                             <div id="username">@{{.User.Username}}</div>

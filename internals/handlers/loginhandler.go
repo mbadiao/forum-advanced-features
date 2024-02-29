@@ -13,16 +13,18 @@ import (
 )
 
 type Data struct {
-	ActualUser  database.User
-	Page        string
-	Badpassword string
-	Messagelg   string
-	Messagesg   string
-	Status      string
-	Isconnected bool
-	Mylike      int
-	Mypost      int
-	Alldata     AllData
+	ActualUser    database.User
+	Page          string
+	Badpassword   string
+	Messagelg     string
+	Messagesg     string
+	Status        string
+	Isconnected   bool
+	Mylike        int
+	Mypost        int
+	Alldata       AllData
+	LenNotif      int
+	Notifications []database.Notifications
 }
 
 func LoginHandler(w http.ResponseWriter, r *http.Request) {

@@ -1,17 +1,97 @@
-#centerside{
+#centerside {
     overflow-y: scroll;
     overflow-x: hidden;
-    scrollbar-width: thin; /* Pour Firefox */
-    scrollbar-color: transparent transparent; /* Pour Firefox */
+    scrollbar-width: thin;
+    /* Pour Firefox */
+    scrollbar-color: transparent transparent;
+    /* Pour Firefox */
 
     /* Masquer la barre de défilement dans les navigateurs WebKit (Chrome, Safari) */
     &::-webkit-scrollbar {
-        width: 0.5em; /* Largeur de la barre de défilement */
+        width: 0.5em;
+        /* Largeur de la barre de défilement */
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: transparent; /* Couleur de la poignée de défilement */
+        background-color: transparent;
+        /* Couleur de la poignée de défilement */
     }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-main: #87B29E;
+  --clr-dark: #333;
+  --clr-neutral: #ddd;
+  --clr-light: #fff;
+}
+.btnnotif {
+    padding: 1em 3em;
+    margin-bottom: 2rem;
+    border: none;
+    border-radius: 1.5em;
+    background-color: var(--clr-main);
+    font-family: inherit;
+    color: var(--clr-light);
+    transition: filter .15s ease-in-out;
+    cursor: pointer;
+}
+
+.btnnotif:hover {
+    filter: brightness(1.1);
+}
+
+.modalnotif {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modalnotif-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #87B29E;
+    padding: 2rem 2.5rem;
+    width: 30em;
+    border-radius: 0.5rem;
+}
+
+.close-buttonnotif {
+    float: right;
+    width: 1.5rem;
+    font-size: 1.2em;
+    line-height: 1;
+    padding: 0 .2em .15em;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: var(--clr-neutral);
+    color: var(--clr-dark);
+    transition: color 0.12s ease-in-out;
+}
+
+.close-buttonnotif:hover {
+    color: var(--clr-main);
+}
+
+.show-modalnotif {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
 #centercontainer {
@@ -51,27 +131,30 @@
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
 }
 
-#username, #time {
+#username,
+#time {
     color: #62707d;
     font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
     font-size: 13px;
 }
 
 #title {
-        color: white;
-        font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
-        font-size: 15px;
-        padding-left: 1%;
-        font-weight: 900;
-        width: 100%;
-        height: max-content;
-        overflow-wrap: break-word;
+    color: white;
+    font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+    font-size: 15px;
+    padding-left: 1%;
+    font-weight: 900;
+    width: 100%;
+    height: max-content;
+    overflow-wrap: break-word;
 }
+
 #imgcontainer {
     width: 100%;
     display: flex;
     justify-content: center;
 }
+
 #imgcontainer img {
     max-width: 100%;
     min-width: 50%;
@@ -93,7 +176,7 @@
 }
 
 #categories {
-    display: flex; 
+    display: flex;
     font-size: 16px;
     color: #87B29E;
     padding-left: 1%;
@@ -117,7 +200,7 @@
     width: 80%;
     max-width: 600px;
     display: grid;
-    grid-template-columns: repeat(3, 25%); 
+    grid-template-columns: repeat(3, 25%);
     justify-content: space-between;
 }
 
@@ -182,18 +265,19 @@
     cursor: pointer;
     width: 80%;
     background-color: #62707d;
-   
+
 }
 
 @media screen and (max-width: 700px) {
+
     #like,
     #dislike {
         font-size: medium;
     }
-    
+
 }
 
-#logouthide{
+#logouthide {
     background: #1B2730;
     border: solid #354450;
     color: white;
@@ -211,31 +295,38 @@
 }
 
 @media only screen and (max-width: 500px) {
-    #profile{
+    #profile {
         display: none;
     }
-    #logouthide{
+
+    #logouthide {
         display: block;
         margin: 4% 0% 0% 20%;
     }
+
     #like,
     #dislike {
         font-size: small;
     }
-    #user #name{
+
+    #user #name {
         font-size: 14px;
         white-space: nowrap;
     }
-    #user #time{
+
+    #user #time {
         font-size: 7px;
     }
-    #user #username{
+
+    #user #username {
         font-size: 7px;
     }
-    #pp{
+
+    #pp {
         display: none;
     }
-    #login-right{
+
+    #login-right {
         display: none;
     }
 }

@@ -90,14 +90,20 @@ func CookieHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 				}
 				mylike, _ := TotalLikesByUserID(db, CurrentUser.UserID)
 				mypost, _ := TotalPostByUserID(db, CurrentUser.UserID)
-
+				notifs, errnotif := NotifTo(w, r, CurrentUser.UserID, db)
+				if errnotif != nil {
+					utils.FileService("error.html", w, Err[500])
+					return
+				}
 				donnees := Data{
-					Status:      "logout",
-					ActualUser:  CurrentUser,
-					Isconnected: true,
-					Mylike:      mylike,
-					Mypost:      mypost,
-					Alldata:     AllData,
+					Status:        "logout",
+					ActualUser:    CurrentUser,
+					Isconnected:   true,
+					Mylike:        mylike,
+					Mypost:        mypost,
+					Alldata:       AllData,
+					LenNotif:      notifs.LenNotif,
+					Notifications: notifs.Notifs,
 				}
 				utils.FileService("home.html", w, donnees)
 				return
