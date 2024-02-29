@@ -79,9 +79,13 @@ type Session struct {
 	ExpirationDate time.Time
 }
 type Notifications struct {
+	Wholike        string
+	Postcontent    string
 	NotificationID int
 	UserID         int
 	Message        string
 	PostID         int
 	Read           bool
+	CreationDate   time.Time
+	Formatdate     string
 }

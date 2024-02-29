@@ -23,7 +23,7 @@ type Data struct {
 	Mylike        int
 	Mypost        int
 	Alldata       AllData
-	LenNotif      int
+	LenNotif int
 	Notifications []database.Notifications
 }
 

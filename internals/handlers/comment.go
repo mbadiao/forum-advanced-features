@@ -129,6 +129,7 @@ func RecordComment(w http.ResponseWriter, r *http.Request) {
 		Content:    r.FormValue("comment"),
 	}
 	http.Redirect(w, r, "/comment?id="+idStr, http.StatusSeeOther)
+	WhoLike(w, r, db, comment.PostID, "", "", comment.Username)
 	database.Insert(db, "Comments", "(post_id, user_id, userName, firstname, lastname, formatDate, content)", comment.PostID, comment.UserID, comment.Username, comment.Firstname, comment.Lastname, comment.Formatdate, comment.Content)
 }
 

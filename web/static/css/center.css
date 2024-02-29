@@ -71,6 +71,7 @@
 
 .close-buttonnotif {
     float: right;
+    border: none;
     width: 1.5rem;
     font-size: 1.2em;
     line-height: 1;
@@ -78,7 +79,7 @@
     text-align: center;
     cursor: pointer;
     border-radius: 0.25rem;
-    background-color: var(--clr-neutral);
+    background-color: transparent;
     color: var(--clr-dark);
     transition: color 0.12s ease-in-out;
 }
