@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>FORUM</title>
+    <title>Document</title>
 </head>
 
 <body>
@@ -23,18 +23,17 @@
                 </a>
             </div>
                 <div class="options">
-                    <!-- Ajoutez un ID unique à chaque lien pour les distinguer -->
                     <a href="/"><button id="homeButton"><i class="fas fa-house" aria-hidden="true"></i>Home</button></a>
-                    <a href="/profile"><button id="likedButton"><i class="far fa-thumbs-up" aria-hidden="true"></i>Liked or Disliked Post</button></a>
-                    <a href="/profile"><button id="createdButton"><i class="far fa-pen-to-square" aria-hidden="true"></i>Created Post</button></a>
-                    <a href="/profile"><button id="commentedButton"><i class="far fa-comment" aria-hidden="true"></i>Commented Post</button></a>
+                    <a href="/profile?like"><button id="likedButton"><i class="far fa-thumbs-up" aria-hidden="true"></i>Liked or Disliked Post</button></a>
+                    <a href="/profile?create"><button id="createdButton"><i class="far fa-pen-to-square" aria-hidden="true"></i>Created Post</button></a>
+                    <a href="/profile?comment"><button id="commentedButton"><i class="far fa-comment" aria-hidden="true"></i>Commented Post</button></a>
                 </div>
             <div class="bottombtn">
-                <div class="profilepic"><img src="https://ui-avatars.com/api/?name=J+' '+D&bold=true
+                <div class="profilepic"><img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
                     &background=D9D9D9&color=00000&rounded=true&uppercase=true&size=88" alt=""></div>
                 <div class="identifiants">
-                    <div class="FullName" style="font-size: 1.4em;">John Doe</div>
-                    <div class="Username" style="font-size: 1em; color: grey;">@johndoe</div>
+                    <div class="FullName" style="font-size: 1.4em;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}</div>
+                    <div class="Username" style="font-size: 1em; color: grey;">@{{.ActualUser.Username}}</div>
                 </div>
             </div>
         </div>
@@ -46,11 +45,11 @@
             </div>
             <div class="postprof">
                 <div class="postprofpic">
-                    <img src="https://ui-avatars.com/api/?name=J+' '+D&bold=true
+                    <img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
                     &background=D9D9D9&color=00000&rounded=true&uppercase=true&size=180" alt="" id="bigPP">
                     <div class="identifiants">
-                        <div class="FullName" style="font-size: 1.9em;color: white;">John Doe</div>
-                        <div class="Username" style="font-size: 1.4em; color: grey;">@johndoe</div>
+                        <div class="FullName" style="font-size: 1.9em;color: white;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}</div>
+                        <div class="Username" style="font-size: 1.4em; color: grey;">@{{.ActualUser.Username}}</div>
                     </div>
                 </div>
             </div>
@@ -59,7 +58,7 @@
                 <div id="centercontainer">
                     <div id="postouz">
                         <div id="profileouz">
-                            <div style="margin-top: 10px;" class="pp">img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
+                            <div style="margin-top: 10px;" class="pp"><img src="https://ui-avatars.com/api/?name={{.User.Firstname}}+' '+{{.User.Lastname}}&bold=true
                                 &background=87B29E&color=fff&rounded=true&uppercase=true" alt=""></div>
                             <div class="trashcontainer">
                                 <div class="pp" id="user">
