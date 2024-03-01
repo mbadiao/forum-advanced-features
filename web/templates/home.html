@@ -25,17 +25,20 @@
 
             <div class="modalnotif">
                 <div class="modalnotif-content">
-                    <span class="close-buttonnotif">&times;</span>
-                    <h2>Notifications</h2>
-                    {{range .Notifications}}
-                    <div class="notification">
-                        <div class="notification-text">
-                            <p><strong>{{.Wholike}}</strong> {{.Message}}</p><span
-                                style="font-size: 0.5em;">{{.Formatdate}}</span>
-                        </div>
-                        <button class="view-post-button">See post</button>
+                    <div id="notif_entete">
+                        <span class="close-buttonnotif">&times;</span>
+                        <h2>Notifications</h2>
                     </div>
-                    {{end}}
+                    <div id="notif_body">
+                        {{range .Notifications}}
+                        <div class="notification">
+                            <div class="notification-text">
+                                <p><strong>{{.Wholike}}</strong> {{.Message}} <button style="border: none; background-color: transparent;" value="readnotif"><a style="text-decoration: none;color: #87B29E;" href="/comment?id={{.PostID}}">see post</a></button></p><span
+                                    style="font-size: 0.5em;">{{.Formatdate}} </span>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
                 </div>
             </div>
         </span>

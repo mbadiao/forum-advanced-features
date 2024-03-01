@@ -105,7 +105,7 @@ func RecordComment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var userId int
-	err = db.QueryRow("SELECT user_id FROM Sessions WHERE cookie_value=?", cookie.Value).Scan(&userId)
+	err = db.QueryRow("SELECT user_id FRuser_idOM Sessions WHERE cookie_value=?", cookie.Value).Scan(&userId)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 		fmt.Println(err.Error())

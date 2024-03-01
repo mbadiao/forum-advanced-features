@@ -6,6 +6,7 @@ import (
 	"forum/internals/database"
 	"forum/internals/utils"
 	"net/http"
+	"strings"
 )
 
 type NotifData struct {
@@ -58,7 +59,6 @@ func WhoLike(w http.ResponseWriter, r *http.Request, db *sql.DB, post_id int, li
 			fmt.Println(err.Error())
 			return
 		}
-
 		if existingNotificationID != 0 {
 			return
 		}
@@ -78,14 +78,17 @@ func WhoLike(w http.ResponseWriter, r *http.Request, db *sql.DB, post_id int, li
 		} else {
 			return
 		}
-	} else {
-		return
+		if !likestatus && !dislikestatus {
+			return
+		}
 	}
-	notif.Wholike = u.Username
-	notif.PostID = post_id
-	database.Insert(db, "Notifications", "(user_id, message, post_id,username)", notif.UserID, notif.Message, notif.PostID, notif.Wholike)
+	fmt.Printf("liked %v disliked %v comment %v", liked, disliked, comuser)
+	if strings.TrimSpace(liked) != "" || strings.TrimSpace(disliked) != "" || strings.TrimSpace(comuser) != "" {
+		notif.Wholike = u.Username
+		notif.PostID = post_id
+		database.Insert(db, "Notifications", "(user_id, message, post_id,username)", notif.UserID, notif.Message, notif.PostID, notif.Wholike)
+	}
 }
-
 func NotifTo(w http.ResponseWriter, r *http.Request, user_id int, db *sql.DB) (NotifData, error) {
 	var Data NotifData
 	actualcookie := GetCookieHandler(w, r)
@@ -94,13 +97,12 @@ func NotifTo(w http.ResponseWriter, r *http.Request, user_id int, db *sql.DB) (N
 		fmt.Println(err.Error())
 	}
 	var notifs []database.Notifications
-	rows, getnotiferr := db.Query("SELECT * FROM Notifications WHERE user_id =?", user_id)
+	rows, getnotiferr := db.Query("SELECT * FROM Notifications WHERE user_id =? ORDER BY creation_date DESC", user_id)
 	if getnotiferr != nil {
 		fmt.Println(getnotiferr.Error())
 		return Data, nil
 	}
 	defer rows.Close()
-
 	for rows.Next() {
 		var notif database.Notifications
 		err = rows.Scan(&notif.NotificationID, &notif.UserID, &notif.Message, &notif.PostID, &notif.Wholike, &notif.Read, &notif.CreationDate)
@@ -114,7 +116,6 @@ func NotifTo(w http.ResponseWriter, r *http.Request, user_id int, db *sql.DB) (N
 	Data.Notifs = notifs
 	return Data, nil
 }
-
 func TakePostText(post_id int) string {
 	var title string
 	errfrompost := db.QueryRow("SELECT title FROM Posts WHERE post_id=?", post_id).Scan(&title)
@@ -122,4 +123,8 @@ func TakePostText(post_id int) string {
 		return ""
 	}
 	return title
+}
+
+func AlreadyLiked() {
+
 }
