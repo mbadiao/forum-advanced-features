@@ -28,7 +28,13 @@
                     <span class="close-buttonnotif">&times;</span>
                     <h2>Notifications</h2>
                     {{range .Notifications}}
-                    <a style="text-decoration: none; color:black;" href="/comment?id={{.PostID}}"><p>{{.Message}} <span style="font-size: 0.5em;">{{.Formatdate}}</span></p></a>
+                    <div class="notification">
+                        <div class="notification-text">
+                            <p><strong>{{.Wholike}}</strong> {{.Message}}</p><span
+                                style="font-size: 0.5em;">{{.Formatdate}}</span>
+                        </div>
+                        <button class="view-post-button">See post</button>
+                    </div>
                     {{end}}
                 </div>
             </div>

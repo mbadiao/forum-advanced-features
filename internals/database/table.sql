@@ -78,6 +78,7 @@ CREATE TABLE IF NOT EXISTS Notifications (
     user_id INTEGER NOT NULL,
     message TEXT NOT NULL,
     post_id INTEGER NOT NULL,
+    username TEXT NOT NULL,
     read BOOLEAN NOT NULL DEFAULT FALSE,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

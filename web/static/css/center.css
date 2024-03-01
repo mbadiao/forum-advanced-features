@@ -17,6 +17,28 @@
         /* Couleur de la poignée de défilement */
     }
 }
+.notification {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.notification-text {
+    flex: 1;
+}
+.notification-text strong {
+    font-weight: bold;
+}
+.view-post-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 *,
 *::before,
 *::after {
@@ -53,6 +75,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
+    overflow: scroll;
     visibility: hidden;
     transform: scale(1.1);
     transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
@@ -60,6 +83,7 @@
 
 .modalnotif-content {
     position: absolute;
+    overflow-y: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
