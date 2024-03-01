@@ -8,14 +8,6 @@ import (
 	"strconv"
 )
 
-// type AllData struct {
-// 	Posts []PostWithUser
-// }
-
-// type PostWithUser struct {
-// 	Post database.Post
-// 	User database.User
-// }
 
 func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	query := ""
@@ -45,14 +37,18 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Println("path URL", r.URL.RawQuery)
+	mess := ""
 	if r.URL.RawQuery == "" {
 		query = "SELECT post_id, user_id, title, PhotoURL, content, creation_date FROM Posts ORDER BY creation_date DESC"
 	} else if r.URL.RawQuery == "like" {
 		query = "SELECT DISTINCT p.post_id, p.user_id, p.title, p.PhotoURL, p.content, p.creation_date FROM Posts p JOIN LikesDislikes ld ON p.post_id = ld.post_id WHERE ld.user_id = " + strconv.Itoa(CurrentUser.UserID) + " AND (ld.liked = TRUE OR ld.disliked = TRUE) ORDER BY creation_date DESC"
+		mess = "Liked or Disliked Post"
 	} else if r.URL.RawQuery == "create" {
 		query = "SELECT post_id, user_id, title, PhotoURL, content, creation_date FROM Posts WHERE user_id =" + strconv.Itoa(CurrentUser.UserID)
+		mess = "Created Post"
 	} else if r.URL.RawQuery == "comment" {
 		query = "SELECT post_id, user_id, title, PhotoURL, content, creation_date FROM Posts WHERE post_id IN (SELECT post_id FROM Comments WHERE user_id = " + strconv.Itoa(CurrentUser.UserID) + ")"
+		mess = "Commented Post"
 	} else {
 		w.WriteHeader(404)
 		utils.FileService("error.html", w, Err[404])
@@ -60,7 +56,7 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if found {
-		Displayprofile(w, r, CurrentUser, query)
+		Displayprofile(w, r, CurrentUser, query, mess)
 		return
 	} else {
 		w.WriteHeader(404)
@@ -69,12 +65,14 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Displayprofile(w http.ResponseWriter, r *http.Request, CurrentUser database.User, query string) {
-
+func Displayprofile(w http.ResponseWriter, r *http.Request, CurrentUser database.User, query, mess string) {
+	Result := false
+	code := 0
 	AllData, err1 := getAllcomment(w, r, query)
 	if len(AllData.Posts) == 0 {
-		utils.FileService("error.html", w, Err[0])
-		return
+		Result=true
+		// utils.FileService("error.html", w, Err[0])
+		// return
 	}
 	if err1 != nil {
 		w.WriteHeader(400)
@@ -91,8 +89,11 @@ func Displayprofile(w http.ResponseWriter, r *http.Request, CurrentUser database
 		ActualUser:  CurrentUser,
 		Isconnected: true,
 		Mylike:      mylike,
+		Results: Result,
+		Code0results: code,
+		Mess0results: mess,
 		Mypost:      mypost,
-		Alldata:     AllData,
+		Alldata:     AllData, 
 	}
 	utils.FileService("profile.html", w, donnees)
 }

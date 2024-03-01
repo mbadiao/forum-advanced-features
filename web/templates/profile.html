@@ -22,25 +22,44 @@
                     </div>
                 </a>
             </div>
-                <div class="options">
-                    <a href="/"><button id="homeButton"><i class="fas fa-house" aria-hidden="true"></i>Home</button></a>
-                    <a href="/profile?like"><button id="likedButton"><i class="far fa-thumbs-up" aria-hidden="true"></i>Liked or Disliked Post</button></a>
-                    <a href="/profile?create"><button id="createdButton"><i class="far fa-pen-to-square" aria-hidden="true"></i>Created Post</button></a>
-                    <a href="/profile?comment"><button id="commentedButton"><i class="far fa-comment" aria-hidden="true"></i>Commented Post</button></a>
-                </div>
+            <div class="options">
+                <a href="/"><button id="homeButton"><i class="fas fa-house" aria-hidden="true"></i>Home</button></a>
+                <a href="/profile?like"><button id="likedButton"><i class="far fa-thumbs-up"
+                            aria-hidden="true"></i>Liked or Disliked Post</button></a>
+                <a href="/profile?create"><button id="createdButton"><i class="far fa-pen-to-square"
+                            aria-hidden="true"></i>Created Post</button></a>
+                <a href="/profile?comment"><button id="commentedButton"><i class="far fa-comment"
+                            aria-hidden="true"></i>Commented Post</button></a>
+            </div>
             <div class="bottombtn">
                 <div class="profilepic"><img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
                     &background=D9D9D9&color=00000&rounded=true&uppercase=true&size=88" alt=""></div>
                 <div class="identifiants">
-                    <div class="FullName" style="font-size: 1.4em;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}</div>
+                    <div class="FullName" style="font-size: 1.4em;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}
+                    </div>
                     <div class="Username" style="font-size: 1em; color: grey;">@{{.ActualUser.Username}}</div>
                 </div>
             </div>
         </div>
+        {{if .Results}}
+        <div class="rightprof">
+            <div class="mainResultss">
+                <div class="Resultmain">
+                    <div class="coderesult">
+                        <h1><strong>{{.Code0results}}</strong></h1>
+                    </div>
+                    <div class="textresult">
+                        <p>{{.Mess0results}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{else}}
         <div class="rightprof">
             <div class="bcnprof">
                 <div class="background">
-                   <button style="border: none; background-color: transparent;" onclick="history.back()"><span><i class="fa-solid fa-circle-arrow-left"></i></span></button>
+                    <button style="border: none; background-color: transparent;" onclick="history.back()"><span><i
+                                class="fa-solid fa-circle-arrow-left"></i></span></button>
                 </div>
             </div>
             <div class="postprof">
@@ -48,7 +67,8 @@
                     <img src="https://ui-avatars.com/api/?name={{.ActualUser.Firstname}}+' '+{{.ActualUser.Lastname}}&bold=true
                     &background=D9D9D9&color=00000&rounded=true&uppercase=true&size=180" alt="" id="bigPP">
                     <div class="identifiants">
-                        <div class="FullName" style="font-size: 1.9em;color: white;">{{.ActualUser.Firstname}} {{.ActualUser.Lastname}}</div>
+                        <div class="FullName" style="font-size: 1.9em;color: white;">{{.ActualUser.Firstname}}
+                            {{.ActualUser.Lastname}}</div>
                         <div class="Username" style="font-size: 1.4em; color: grey;">@{{.ActualUser.Username}}</div>
                     </div>
                 </div>
@@ -66,7 +86,8 @@
                                     <div id="username">@{{.User.Username}}</div>
                                     <div id="time">{{.Post.FormatedDate}}</div>
                                 </div>
-                                <div class="trash"><i style="color: #87B29E; cursor: pointer;" class="fa-solid fa-trash"></i></div>
+                                <div class="trash"><i style="color: #87B29E; cursor: pointer;"
+                                        class="fa-solid fa-trash"></i></div>
                             </div>
                         </div>
                         <div id="title">{{.Post.Title}}</div>
@@ -124,6 +145,8 @@
                 {{end}}
             </div>
         </div>
+        {{end}}
+
     </div>
 
     <script>
@@ -148,7 +171,7 @@
 
         // Ajouter un écouteur d'événement à chaque bouton
         buttons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 // Supprimer la classe "active_page" de tous les boutons
                 buttons.forEach(btn => btn.classList.remove('active_page'));
                 // Ajouter la classe "active_page" uniquement au bouton cliqué
@@ -162,4 +185,5 @@
         window.addEventListener('load', loadSelectedButton);
     </script>
 </body>
+
 </html>

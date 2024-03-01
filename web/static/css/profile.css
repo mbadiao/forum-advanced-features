@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Rubik+Mono+One&family=Rubik+Scribble&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Rubik+Scribble&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -378,4 +381,44 @@ button.active_page {
     #login-right{
         display: none;
     }
+}
+
+.coderesult h1 {
+    font-family: "Rubik Mono One";
+    font-size: 7em;
+    letter-spacing: 2px;
+    line-height: 0.2em;
+}
+
+.textresult p {
+    display: block;
+    font-family: Oswald;
+    font-size: 2em;
+    line-height: 1.2em;
+    text-align: center;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.Resultmain {
+    max-width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    gap: 10px;
+}
+
+.mainResultss {
+    font: 110%/1.5 system-ui, sans-serif;
+    background: #06141D;
+    color: white;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    place-items: center;
+    padding: 2rem;
 }
