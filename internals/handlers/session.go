@@ -192,6 +192,39 @@ func CookieHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 
 		FilterHandler(w, r, CurrentUser)
 	}
+	if r.URL.Path == "/remove" && r.Method == "GET" {
+		ActualCookie := GetCookieHandler(w, r)
+		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		found := false
+
+		for _, data := range datas {
+			u := data.(*database.Session)
+			if u.Cookie_value == ActualCookie {
+				CurrentUser = database.User{}
+				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
+				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
+				if err != nil {
+					fmt.Println(err.Error())
+					return
+				}
+				found = true
+				break
+			}
+		}
+
+		if found {
+			Removepost(w, r, CurrentUser)
+			return
+		}
+		if !found {
+			utils.FileService("login.html", w, nil)
+		}
+	}
 
 	if r.URL.Path == "/edit" && r.Method == "GET" {
 		ActualCookie := GetCookieHandler(w, r)

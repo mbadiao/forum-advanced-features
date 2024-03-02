@@ -109,7 +109,7 @@ var Routes = []Route{
 	},
 	{
 		Path:    "/remove",
-		Handler: Removepost,
+		Handler: HomeHandler,
 		Method:  []string{"GET"},
 	},
 	{
