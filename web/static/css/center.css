@@ -150,8 +150,8 @@
 }
 
 #centerside #profileouz {
-    display: grid;
-    grid-template-columns: auto 93%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 #centerside #user {
@@ -160,6 +160,20 @@
     width: 100%;
     margin-left: 10px;
 }
+
+.dots {
+    display: flex;
+    margin: 6px 10px 0px 0px;
+    cursor: pointer;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 4px;
+}
+
 
 #name {
     font-size: 19.53px;

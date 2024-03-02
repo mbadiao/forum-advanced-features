@@ -102,9 +102,19 @@ var Routes = []Route{
 		Handler: HandleLogGithub,
 		Method:  []string{"GET"},
 	},
-		{
+	{
 		Path:    "/profile",
 		Handler: ProfileHandler,
+		Method:  []string{"POST", "GET"},
+	},
+	{
+		Path:    "/remove",
+		Handler: Removepost,
+		Method:  []string{"GET"},
+	},
+	{
+		Path:    "/edit",
+		Handler: HomeHandler,
 		Method:  []string{"POST", "GET"},
 	},
 }

@@ -54,6 +54,8 @@ func Insert(db *sql.DB, table, values string, data ...interface{}) {
 	}
 }
 
+
+
 func Scan(db *sql.DB, request string, data Table) ([]Table, error) {
 	stmt, err := db.Prepare(request)
 	if err != nil {

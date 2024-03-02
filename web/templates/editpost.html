@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/css/edit.css">
+    <script src="./static/script/signup.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="entete">
+        <a href="/">
+            <div>
+                <img src="./static/assets/0.svg" alt="">
+                <img src="./static/assets/1.svg" alt="">
+            </div>
+        </a>
+    </div>
+    <div class="main">
+        <div class="headermodal">
+            <div>
+                <img src="../static/images/0.svg" alt="">
+                <img src="../static/images/1.svg" alt="">
+            </div>
+            <span class="log-not">
+                <img src="../static/images/bell 1.svg" alt="">
+            </span>
+        </div>
+        <div class="modal-container">
+            <form action="/edit?id={{.Mypost}}" method="post" enctype="multipart/form-data">
+                <div class=" overlay modal-trigger"></div>
+                <div class="modal">
+                    <div class="modal-element">
+                        <h1>Edit post</h1>
+                        <textarea placeholder=" Title" class="textarea-title" name="title" id=""></textarea>
+                        <div class="elemnent">
+                            <div class="sep">
+                                <span class="separator">
+                                </span>
+                            </div>
+                            <h2>Image</h2>
+                            <div class="sep">
+                                <span class="separator">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Photo">
+                            <img class="img-button-photo" src="../static/assets/image 1.svg" alt="tags"> photo
+                            <input type="file" id="file-input" accept="image/png,image/svg, image/jpeg, image/gif"
+                                name="file">
+                        </div>
+                        <div class="elemnent">
+                            <div class="sep">
+                                <span class="separator">
+                                </span>
+                            </div>
+                            <h2>Categories</h2>
+                            <div class="sep">
+                                <span class="separator">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="Category-checkbox">
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="All">
+                                    <span>All</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="Tech">
+                                    <span>Tech</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="Actu">
+                                    <span>Actu</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="Mode">
+                                    <span>Mode</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="Sport">
+                                    <span>Sport</span>
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="checkbox" name="checkbox" value="Edu">
+                                    <span>Edu</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="send">
+                            <textarea placeholder="Add Thread" class="text" name="thread" id=""></textarea>
+                            <button class="send-img">
+                                <input type="image" src="./static/assets/send-horizontal 1.svg" alt="Submit">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
