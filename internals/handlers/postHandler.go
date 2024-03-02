@@ -18,7 +18,6 @@ type Category struct {
 	CategoryID   int
 	CategoryName string
 }
-var alldata AllData
 
 var db = database.CreateTable()
 var postID int64 // Declare postID outside the if statement
