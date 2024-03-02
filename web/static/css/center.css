@@ -161,20 +161,6 @@
     margin-left: 10px;
 }
 
-.dots {
-    display: flex;
-    margin: 6px 10px 0px 0px;
-    cursor: pointer;
-}
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #fff;
-    margin-right: 4px;
-}
-
-
 #name {
     font-size: 19.53px;
     font-weight: 500;

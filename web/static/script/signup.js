@@ -104,3 +104,9 @@ for (var i = 0, len = triggersNotif.length; i < len; i++) {
 }
 closeButtonNotif.addEventListener("click", toggleModalNotif);
 window.addEventListener("click", windowOnClickNotif);
+
+
+function view(event) {
+    event.currentTarget.nextElementSibling.classList.toggle("style");
+    event.currentTarget.nextElementSibling.classList.toggle("active");
+}

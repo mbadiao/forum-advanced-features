@@ -8,7 +8,6 @@ import (
 	"strconv"
 )
 
-
 func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 	query := ""
 	var CurrentUser database.User
@@ -38,12 +37,10 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("path URL", r.URL.RawQuery)
 	mess := ""
-	if r.URL.RawQuery == "" {
-		query = "SELECT post_id, user_id, title, PhotoURL, content, creation_date FROM Posts ORDER BY creation_date DESC"
-	} else if r.URL.RawQuery == "like" {
+	if r.URL.RawQuery == "like" {
 		query = "SELECT DISTINCT p.post_id, p.user_id, p.title, p.PhotoURL, p.content, p.creation_date FROM Posts p JOIN LikesDislikes ld ON p.post_id = ld.post_id WHERE ld.user_id = " + strconv.Itoa(CurrentUser.UserID) + " AND (ld.liked = TRUE OR ld.disliked = TRUE) ORDER BY creation_date DESC"
 		mess = "Liked or Disliked Post"
-	} else if r.URL.RawQuery == "create" {
+	} else if r.URL.RawQuery == "create" || r.URL.RawQuery == "" {
 		query = "SELECT post_id, user_id, title, PhotoURL, content, creation_date FROM Posts WHERE user_id =" + strconv.Itoa(CurrentUser.UserID)
 		mess = "Created Post"
 	} else if r.URL.RawQuery == "comment" {
@@ -70,7 +67,7 @@ func Displayprofile(w http.ResponseWriter, r *http.Request, CurrentUser database
 	code := 0
 	AllData, err1 := getAllcomment(w, r, query)
 	if len(AllData.Posts) == 0 {
-		Result=true
+		Result = true
 		// utils.FileService("error.html", w, Err[0])
 		// return
 	}
@@ -85,15 +82,15 @@ func Displayprofile(w http.ResponseWriter, r *http.Request, CurrentUser database
 	CurrentUser.Firstname = utils.Trimname(CurrentUser.Firstname)
 	CurrentUser.Lastname = utils.Trimname(CurrentUser.Lastname)
 	donnees = Data{
-		Status:      "logout",
-		ActualUser:  CurrentUser,
-		Isconnected: true,
-		Mylike:      mylike,
-		Results: Result,
+		Status:       "logout",
+		ActualUser:   CurrentUser,
+		Isconnected:  true,
+		Mylike:       mylike,
+		Results:      Result,
 		Code0results: code,
 		Mess0results: mess,
-		Mypost:      mypost,
-		Alldata:     AllData, 
+		Mypost:       mypost,
+		Alldata:      AllData,
 	}
 	utils.FileService("profile.html", w, donnees)
 }

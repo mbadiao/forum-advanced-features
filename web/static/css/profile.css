@@ -27,6 +27,42 @@ body {
     margin: 0;
 }
 
+.frame {
+    visibility: hidden;
+    position: absolute;
+}
+
+.style {
+    visibility: visible;
+    background-color: #87B29E;
+    width: max-content;
+    border-radius: 1dvw;
+    height: max-content;
+    right: 8dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+}
+.link{
+    color: #fff;
+    margin: 5px;
+    font-size: large;
+}
+.dots {
+    display: flex;
+    margin: 6px 10px 0px 0px;
+    cursor: pointer;
+}
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin-right: 4px;
+}
+
+
+
 
 .rightprof {
     height: 100%;
@@ -155,6 +191,7 @@ button.active_page {
     padding-bottom: 2vh;
 }
 .trashcontainer{
+    position: relative;
     display: flex;
     flex-direction: row;
     padding-right: 20px;
