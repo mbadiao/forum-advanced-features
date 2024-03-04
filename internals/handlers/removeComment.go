@@ -11,7 +11,7 @@ func Removecomment(w http.ResponseWriter, r *http.Request,user database.User) {
     if r.URL.Path == "/removecomment" && r.Method == "GET" {
 		id := r.URL.Query().Get("id")
 		commentID, _ := strconv.Atoi(id)
-		if !CheckId(commentID) {
+		if !CheckIdcomm(commentID) {
 			utils.FileService("error.html", w, Err[400])
 			return
 		}
@@ -53,7 +53,6 @@ func Removecomment(w http.ResponseWriter, r *http.Request,user database.User) {
             http.Error(w, "Failed to delete post", http.StatusInternalServerError)
             return
         }
-
 
         http.Redirect(w, r, "/", http.StatusSeeOther)
     }

@@ -71,8 +71,6 @@ func Removepost(w http.ResponseWriter, r *http.Request,user database.User) {
             return
         }
 
-
-
         http.Redirect(w, r, "/", http.StatusSeeOther)
     }
 }
