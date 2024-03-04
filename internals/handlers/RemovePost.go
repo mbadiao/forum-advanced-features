@@ -54,6 +54,12 @@ func Removepost(w http.ResponseWriter, r *http.Request,user database.User) {
             return
         }
 
+		_, err = db.Exec("DELETE FROM CommentLikes WHERE comment_id IN (SELECT comment_id FROM Comments WHERE post_id = ?)", postID)
+        if err != nil {
+            http.Error(w, "Failed to delete comment likes/dislikes", http.StatusInternalServerError)
+            return
+        }
+
         _, err = db.Exec("DELETE FROM Comments WHERE post_id = ?", postID)
         if err != nil {
             http.Error(w, "Failed to delete comments", http.StatusInternalServerError)
@@ -65,13 +71,6 @@ func Removepost(w http.ResponseWriter, r *http.Request,user database.User) {
             http.Error(w, "Failed to delete likes/dislikes", http.StatusInternalServerError)
             return
         }
-
-        _, err = db.Exec("DELETE FROM CommentLikes WHERE comment_id IN (SELECT comment_id FROM Comments WHERE post_id = ?)", postID)
-        if err != nil {
-            http.Error(w, "Failed to delete comment likes/dislikes", http.StatusInternalServerError)
-            return
-        }
-
 
         http.Redirect(w, r, "/", http.StatusSeeOther)
     }
