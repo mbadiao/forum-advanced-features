@@ -12,7 +12,7 @@ func ErrorMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		foundpath, foundmethod := false, false
 		for _, route := range Routes {
-			if strings.HasPrefix(route.Path, "/comment") || strings.HasPrefix(route.Path, "/remove") || strings.HasPrefix(route.Path, "/edit"){
+			if strings.HasPrefix(route.Path, "/comment") || strings.HasPrefix(route.Path, "/remove") || strings.HasPrefix(route.Path, "/edit") || strings.HasPrefix(route.Path, "/removecomment") || strings.HasPrefix(route.Path, "/editcomment"){
 				if !IdCheck(w, r) {
 					w.WriteHeader(404)
 					utils.FileService("error.html", w, Err[404])
@@ -44,7 +44,7 @@ func ErrorMiddleware(next http.Handler) http.Handler {
 }
 
 func IdCheck(w http.ResponseWriter, r *http.Request) bool {
-	if strings.HasPrefix(r.URL.Path, "/comment") || strings.HasPrefix(r.URL.Path, "/remove") || strings.HasPrefix(r.URL.Path, "/edit") {
+	if strings.HasPrefix(r.URL.Path, "/comment") || strings.HasPrefix(r.URL.Path, "/remove") || strings.HasPrefix(r.URL.Path, "/edit") || strings.HasPrefix(r.URL.Path, "/removecomment") || strings.HasPrefix(r.URL.Path, "/editcomment"){
 		idStr := r.URL.Query().Get("id")
 		_, err := strconv.Atoi(idStr)
 		if err != nil {

@@ -117,6 +117,16 @@ var Routes = []Route{
 		Handler: HomeHandler,
 		Method:  []string{"POST", "GET"},
 	},
+	{
+		Path:    "/removecomment",
+		Handler: HomeHandler,
+		Method:  []string{"GET"},
+	},
+	{
+		Path:    "/editcomment",
+		Handler: HomeHandler,
+		Method:  []string{"POST", "GET"},
+	},
 }
 
 var Port = ":8080"

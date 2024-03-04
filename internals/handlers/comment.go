@@ -139,6 +139,13 @@ func CheckId(id int) bool {
 	return err == nil
 }
 
+func CheckIdcomm(id int) bool {
+	var userid int
+	err := db.QueryRow("SELECT comment_id FROM Comments WHERE comment_id=?", id).Scan(&userid)
+	return err == nil
+}
+
+
 func CheckIdlike(id int) bool {
 	var userid int
 	err := db.QueryRow("SELECT comment_id FROM Comments WHERE comment_id=?", id).Scan(&userid)
