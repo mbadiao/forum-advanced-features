@@ -35,7 +35,6 @@ func ProfileHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	fmt.Println("path URL", r.URL.RawQuery)
 	mess := ""
 	if r.URL.RawQuery == "like" {
 		query = "SELECT DISTINCT p.post_id, p.user_id, p.title, p.PhotoURL, p.content, p.creation_date FROM Posts p JOIN LikesDislikes ld ON p.post_id = ld.post_id WHERE ld.user_id = " + strconv.Itoa(CurrentUser.UserID) + " AND (ld.liked = TRUE OR ld.disliked = TRUE) ORDER BY creation_date DESC"

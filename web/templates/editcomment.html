@@ -1,76 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./static/script/signup.js" defer></script>
     <link rel="stylesheet" href="/static/css/comment.css">
-    <title>Document</title>
+    <title>01 FORUM</title>
 </head>
+
 <body>
-    <div class="commentside">
-        <form class="commentinput" action="/editcomment?id={{.Mypost}}" method="POST" onsubmit="toggleSubmitButton(event)">
-            <textarea name="comment" id="text" placeholder="Your comment here..."
-                oninput="updateCharacterCount()"></textarea>
-            <button class="submitcomment" id="submitBtn" type="submit" disabled>
-                <input type="submit" value="Comment" style="background-color: transparent; border: none;">
-            </button>
-        </form>
-        <div style="color: white;" id="charCount">0 / 200</div>
-        <div class="progress">
-            <div id="progressBar"></div>
-        </div>
-        <script>
-            window.onload = function () {
-                // Appel de la fonction pour initialiser le bouton transparent
-                toggleSubmitButton();
-            }
-        
-            function toggleSubmitButton(event) {
-                var commentInput = document.getElementById("text");
-                var submitBtn = document.getElementById("submitBtn");
-        
-                if (commentInput.value.trim() !== "") {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = 1;
-                } else {
-                    submitBtn.disabled = true;
-                    submitBtn.style.opacity = 0.5;
-                    // Empêcher l'action par défaut du formulaire
-                    if (event) {
-                        event.preventDefault();
+    <header style="position: sticky;z-index: 1000; top:0;background-color: #06141D;">
+        <a href="/">
+            <div class="sign-logo">
+                <img src="./static/assets/0.svg" alt="">
+                <img src="./static/assets/1.svg" alt="">
+            </div>
+        </a>
+    </header>
+    <div class="allcommentside">
+        <div></div>
+        <div class="commentside">
+            <form class="commentinput" action="/editcomment?id={{.Mypost}}" method="POST"
+                onsubmit="toggleSubmitButton(event)">
+                <textarea name="comment" id="text" placeholder="Your comment here..."
+                    oninput="updateCharacterCount()"></textarea>
+                <button class="submitcomment" id="submitBtn" type="submit" disabled>
+                    <input type="submit" value="Comment" style="background-color: transparent; border: none;">
+                </button>
+            </form>
+            <div style="color: white;" id="charCount">0 / 200</div>
+            <div class="progress">
+                <div id="progressBar"></div>
+            </div>
+            <script>
+                window.onload = function () {
+                    // Appel de la fonction pour initialiser le bouton transparent
+                    toggleSubmitButton();
+                }
+
+                function toggleSubmitButton(event) {
+                    var commentInput = document.getElementById("text");
+                    var submitBtn = document.getElementById("submitBtn");
+
+                    if (commentInput.value.trim() !== "") {
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = 1;
+                    } else {
+                        submitBtn.disabled = true;
+                        submitBtn.style.opacity = 0.5;
+                        // Empêcher l'action par défaut du formulaire
+                        if (event) {
+                            event.preventDefault();
+                        }
                     }
                 }
-            }
-            function updateCharacterCount() {
-                var commentInput = document.getElementById("text");
-                var charCount = document.getElementById("charCount");
-        
-                var currentLength = commentInput.value.length;
-                var maxLength = 200; // Limite de caractères
-        
-                if (currentLength > maxLength) {
-                    commentInput.value = commentInput.value.substring(0, maxLength);
-                    currentLength = maxLength;
+                function updateCharacterCount() {
+                    var commentInput = document.getElementById("text");
+                    var charCount = document.getElementById("charCount");
+
+                    var currentLength = commentInput.value.length;
+                    var maxLength = 200; // Limite de caractères
+
+                    if (currentLength > maxLength) {
+                        commentInput.value = commentInput.value.substring(0, maxLength);
+                        currentLength = maxLength;
+                    }
+
+                    charCount.textContent = currentLength + " / " + maxLength;
+
+                    // Mise à jour de la barre de progression
+                    var progress = (currentLength / maxLength) * 200;
+                    progressBar.style.width = progress + "%";
+
+                    // Mise à jour du bouton de soumission en fonction de la longueur du commentaire
+                    var submitBtn = document.getElementById("submitBtn");
+                    if (currentLength > 0 && currentLength <= maxLength) {
+                        submitBtn.disabled = false;
+                        submitBtn.style.opacity = 1;
+                    } else {
+                        submitBtn.disabled = true;
+                        submitBtn.style.opacity = 0.5;
+                    }
                 }
-        
-                charCount.textContent = currentLength + " / " + maxLength;
-        
-                // Mise à jour de la barre de progression
-                var progress = (currentLength / maxLength) * 200;
-                progressBar.style.width = progress + "%";
-        
-                // Mise à jour du bouton de soumission en fonction de la longueur du commentaire
-                var submitBtn = document.getElementById("submitBtn");
-                if (currentLength > 0 && currentLength <= maxLength) {
-                    submitBtn.disabled = false;
-                    submitBtn.style.opacity = 1;
-                } else {
-                    submitBtn.disabled = true;
-                    submitBtn.style.opacity = 0.5;
-                }
-            }
-        </script>
-        
+            </script>
+        </div>
+        <div></div>
+    </div>
+    <div></div>
 </body>
+
 </html>
