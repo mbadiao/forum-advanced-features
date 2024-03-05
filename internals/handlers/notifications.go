@@ -124,7 +124,3 @@ func TakePostText(post_id int) string {
 	}
 	return title
 }
-
-func AlreadyLiked() {
-
-}
