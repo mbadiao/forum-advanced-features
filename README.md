@@ -1,7 +1,7 @@
 
 <h1 align="center">Forum</h1>
 
-Welcome to the <font color="orange"> FORUM AUTHENTIFICATION</font> project! <br>
+Welcome to the <font color="orange"> FORUM ADVancED FEATURES</font> project! <br>
 If this is your first time here, we're glad to have you! <br> We hope you find this project helpful. We encourage you to contribute, ask questions, and collaborate with us.
 
 
@@ -44,9 +44,18 @@ Forum consists in creating a web forum that allows :
 For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum)
 
 
-In this project (authentication) users have the possibility to sign up or sign in with there google or github account . we integrate the oauth technologie.
+In this project (advanced-features) we will have to create a way to notify users when their posts are :
 
-For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum/authentication)
+- liked/disliked
+- commented
+- You have to create an activity page that tracks the user own activity. In other words, a page that :
+
+- Shows the user created posts
+- Shows where the user left a like or a dislike
+- Shows where and what the user has been commenting. For this, the comment will have to be shown, as well as the post commented
+- You have to create a section where you will be able to Edit/Remove posts and comments..
+
+For more information, click [here](https://github.com/01-edu/public/tree/master/subjects/forum/advanced-features)
 
 
 
@@ -68,7 +77,7 @@ Before starting, you need to have [Git](https://git-scm.com) and [Go](https://go
 
 ```bash
 # Clone this project
- git clone https://learn.zone01dakar.sn/git/ousmasene/forum-authentication.git
+ git clone https://learn.zone01dakar.sn/git/babacandiaye/forum-advanced-features.git
 
 
 # Access
@@ -93,10 +102,10 @@ This project is under license from 01edu . For more details, see the [zone01](le
 
 
 ## Author ##
+- [babacandiaye](https://learn.zone01dakar.sn/git/babacandiaye)
 - [mbadiao](https://learn.zone01dakar.sn/git/mbadiao)
 - [ousmasene](https://learn.zone01dakar.sn/git/ousmasene)
 - [emalo](https://learn.zone01dakar.sn/git/emalo)
-- [babacandiaye](https://learn.zone01dakar.sn/git/babacandiaye)
 
 &#xa0;
 
