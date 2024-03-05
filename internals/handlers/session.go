@@ -295,7 +295,7 @@ func CookieHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 	}
 
 
-	if r.URL.Path == "/editcomment" && (r.Method == "GET" || r.Method == "POST"){
+	if r.URL.Path == "/editcomment" {
 		ActualCookie := GetCookieHandler(w, r)
 		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
 		if err != nil {

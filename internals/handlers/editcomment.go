@@ -10,7 +10,7 @@ import (
 )
 
 func Editcomment(w http.ResponseWriter, r *http.Request, user database.User) {
-	
+
 	id := r.URL.Query().Get("id")
 	commentID, _ := strconv.Atoi(id)
 	if !CheckIdcomm(commentID) {
@@ -33,15 +33,18 @@ func Editcomment(w http.ResponseWriter, r *http.Request, user database.User) {
 		var postID int
 		err = rows.Scan(&postID, &content, &username)
 		if err != nil {
+			w.WriteHeader(400)
 			utils.FileService("error.html", w, Err[400])
 			return
 		}
 	}
 	if err = rows.Err(); err != nil {
+		w.WriteHeader(400)
 		utils.FileService("error.html", w, Err[400])
 		return
 	}
 	if username != user.Username {
+		w.WriteHeader(400)
 		utils.FileService("error.html", w, Err[400])
 		return
 	}

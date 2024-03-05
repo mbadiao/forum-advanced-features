@@ -31,27 +31,32 @@ func Removecomment(w http.ResponseWriter, r *http.Request,user database.User) {
 			var postID int
 			err = rows.Scan(&postID, &content, &username)
 			if err != nil {
-				utils.FileService("error.html", w, Err[400])
-				return
+				w.WriteHeader(400)
+			utils.FileService("error.html", w, Err[400])
+			return
 			}
 		}
 		if err = rows.Err(); err != nil {
+			w.WriteHeader(400)
 			utils.FileService("error.html", w, Err[400])
 			return
 		}
 		if username != user.Username {
+			w.WriteHeader(400)
 			utils.FileService("error.html", w, Err[400])
 			return
 		}
 		_, err = db.Exec("DELETE FROM CommentLikes WHERE comment_id = ?", commentID)
 		if err != nil {
-			http.Error(w, "Failed to delete comment likes/dislikes", http.StatusInternalServerError)
+			w.WriteHeader(500)
+			utils.FileService("error.html", w, Err[500])
 			return
 		}
         _, err = db.Exec("DELETE FROM Comments WHERE comment_id = ?", commentID)
         if err != nil {
-            http.Error(w, "Failed to delete post", http.StatusInternalServerError)
-            return
+			w.WriteHeader(500)
+			utils.FileService("error.html", w, Err[500])
+			return
         }
 
         http.Redirect(w, r, "/", http.StatusSeeOther)
