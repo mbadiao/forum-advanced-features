@@ -12,6 +12,7 @@ func GetCategory(CheckboxValues []string) []int {
 	for _, v := range CheckboxValues {
 		if v == "All" {
 			CategoriesId = []int{1, 2, 3, 4, 5}
+			break
 		}
 		if v == "Tech" {
 			CategoriesId = append(CategoriesId, 1)

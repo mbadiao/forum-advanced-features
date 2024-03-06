@@ -47,7 +47,6 @@ func GetCookieHandler(w http.ResponseWriter, r *http.Request) string {
 }
 
 func CookieHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
-	var CurrentUser database.User
 	if r.URL.Path == "/" && r.Method == "GET" {
 		found := false
 		ActualCookie := GetCookieHandler(w, r)
@@ -124,210 +123,40 @@ func CookieHandler(w http.ResponseWriter, r *http.Request, db *sql.DB) {
 			utils.FileService("home.html", w, donnees)
 			return
 		}
+	} else {
+		Handleredirect(w, r, db)
 	}
-	if r.URL.Path == "/" && r.Method == "POST" {
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-		Found := false
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				Found = true
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
+}
+
+func FindUserbyCookie(w http.ResponseWriter, r *http.Request, db *sql.DB, CurrentUser database.User) (bool, database.User, bool) {
+	ActualCookie := GetCookieHandler(w, r)
+	datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
+	if err != nil {
+		fmt.Println(err.Error())
+		return false, database.User{}, true
+	}
+	Found := false
+	for _, data := range datas {
+		u := data.(*database.Session)
+		if u.Cookie_value == ActualCookie {
+			CurrentUser = database.User{}
+			query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
+			err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
+			if err != nil {
+				fmt.Println(err.Error())
+				return false, database.User{}, true
 			}
-		}
-		if Found {
-			PostHandler(w, r, CurrentUser)
-			return
-		}
-		if !Found {
-			utils.FileService("login.html", w, nil)
-		}
-	}
-	if r.URL.Path == "/filter" && r.Method == "POST" {
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		found := false
-
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
-				found = true
-				break
-			}
-		}
-
-		if found {
-			FilterHandler(w, r, CurrentUser)
-			return
-		}
-
-		if len(datas) == 0 {
-			fmt.Println("filter sans compte")
-			CurrentUser.UserID = 0
-
-		}
-
-		FilterHandler(w, r, CurrentUser)
-	}
-	if r.URL.Path == "/remove" && r.Method == "GET" {
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		found := false
-
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
-				found = true
-				break
-			}
-		}
-
-		if found {
-			Removepost(w, r, CurrentUser)
-			return
-		}
-		if !found {
-			utils.FileService("login.html", w, nil)
+			Found = true
+			break
 		}
 	}
 
-	if r.URL.Path == "/removecomment" && r.Method == "GET" {
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		found := false
-
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
-				found = true
-				break
-			}
-		}
-
-		if found {
-			Removecomment(w, r, CurrentUser)
-			return
-		}
-		if !found {
-			utils.FileService("login.html", w, nil)
-		}
+	if r.URL.Path == "/filter" && len(datas) == 0 {
+		fmt.Println("filter sans compte")
+		CurrentUser.UserID = 0
 	}
 
-
-	if r.URL.Path == "/edit" && (r.Method == "GET" || r.Method == "POST"){
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		found := false
-
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
-				found = true
-				break
-			}
-		}
-		if found {
-			Editpost(w, r, CurrentUser)
-			return
-		}
-		if !found {
-			utils.FileService("login.html", w, nil)
-		}
-	}
-
-
-	if r.URL.Path == "/editcomment" {
-		ActualCookie := GetCookieHandler(w, r)
-		datas, err := database.Scan(db, "SELECT * FROM SESSIONS ", &database.Session{})
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		found := false
-
-		for _, data := range datas {
-			u := data.(*database.Session)
-			if u.Cookie_value == ActualCookie {
-				CurrentUser = database.User{}
-				query := "SELECT user_id, username, firstname, lastname, email, password_hash, registration_date FROM Users WHERE user_id=?"
-				err := db.QueryRow(query, u.UserID).Scan(&CurrentUser.UserID, &CurrentUser.Username, &CurrentUser.Firstname, &CurrentUser.Lastname, &CurrentUser.Email, &CurrentUser.PasswordHash, &CurrentUser.RegistrationDate)
-				if err != nil {
-					fmt.Println(err.Error())
-					return
-				}
-				found = true
-				break
-			}
-		}
-		
-		if found {
-			Editcomment(w, r, CurrentUser)
-			return
-		}
-		if !found {
-			utils.FileService("login.html", w, nil)
-		}
-	}
+	return Found, CurrentUser, false
 }
 
 func TotalLikesByUserID(db *sql.DB, userID int) (int, error) {
@@ -370,4 +199,53 @@ func CountCommentsByPostID(db *sql.DB, postID int) (int, error) {
 		return 0, err
 	}
 	return commentCount, nil
+}
+
+func Handleredirect(w http.ResponseWriter, r *http.Request, db *sql.DB) {
+	var CurrentUser database.User
+	var Found bool
+	var shouldReturn bool
+	Found, CurrentUser, shouldReturn = FindUserbyCookie(w, r, db, CurrentUser)
+	if shouldReturn {
+		return
+	}
+	switch {
+	case r.URL.Path == "/" && r.Method == "POST" :
+		if Found {
+            PostHandler(w, r, CurrentUser)
+        } else {
+            utils.FileService("login.html", w, nil)
+        }
+	case r.URL.Path == "/filter" && r.Method == "POST":
+		FilterHandler(w, r, CurrentUser)
+	case r.URL.Path == "/remove" && r.Method == "GET":
+		if Found {
+            Removepost(w, r, CurrentUser)
+        } else {
+            utils.FileService("login.html", w, nil)
+        }
+	case r.URL.Path == "/removecomment" && r.Method == "GET":
+		if Found {
+            Removecomment(w, r, CurrentUser)
+        } else {
+            utils.FileService("login.html", w, nil)
+        }
+	case r.URL.Path == "/edit":
+		if Found {
+            Editpost(w, r, CurrentUser)
+        } else {
+            utils.FileService("login.html", w, nil)
+        }
+	case r.URL.Path == "/editcomment":
+		if Found {
+            Editcomment(w, r, CurrentUser)
+        } else {
+            utils.FileService("login.html", w, nil)
+        }
+	default:
+		fmt.Println("au cas ou")
+		w.WriteHeader(500)
+		utils.FileService("error.html", w, Err[500])
+		return
+	}
 }
